@@ -1,14 +1,11 @@
-# Use a base image with Java runtime
-FROM openjdk:17-jdk-slim
+FROM openjdk:17-oracle
 
-# Set the working directory inside the container
-WORKDIR /app
+WORKDIR /home/petclinic/
 
-# Copy the JAR file from the host to the container
-COPY  target/spring-petclinic-3.3.0-SNAPSHOT.jar app.jar
+COPY ./target/spring-petclinic-3.2.0-SNAPSHOT.jar .
 
-# Expose the port the application runs on
 EXPOSE 8080
 
-# Define the command to run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENV MYSQL_URL=jdbc:mysql://petclinic-mysql:3306/petclinic
+
+CMD ["java", "-jar", "spring-petclinic-3.2.0-SNAPSHOT.jar"]
